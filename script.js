@@ -97,7 +97,14 @@ function isListEmpty() {
 }
 
 function filterItems(e) {
-  console.log(e.key);
+  let items = document.querySelectorAll("li");
+  console.log(items);
+  let filteredItems = Array.from().filter((item) => {
+    return item.contains(e.target.value);
+  });
+
+  console.log(filteredItems);
+  return filterItems;
 }
 
 isListEmpty();
