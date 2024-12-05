@@ -97,8 +97,7 @@ function isListEmpty() {
 }
 
 function filterItems(e) {
-  let searchTerm = itemFilter.value;
-  console.log(searchTerm);
+  console.log(e.key);
 }
 
 isListEmpty();
