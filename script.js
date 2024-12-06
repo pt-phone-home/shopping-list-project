@@ -1,33 +1,3 @@
-// MY ATTEMPT
-// const input = document.querySelector("#item-input");
-// const button = document.querySelector(".btn");
-// const list = document.querySelector("ul");
-
-// function addItem(e) {
-//   e.preventDefault();
-
-//   if (input.value === "") {
-//     return;
-//   }
-
-//   const itemText = document.createTextNode(input.value);
-//   const li = document.createElement("li");
-//   list.appendChild(li);
-//   const innerButton = document.createElement("button");
-//   innerButton.className = "remove-item btn-link text-red";
-//   const icon = document.createElement("i");
-//   icon.className = "fa-solid fa-xmark";
-
-//   innerButton.appendChild(icon);
-//   li.appendChild(itemText);
-//   li.appendChild(innerButton);
-
-//   input.value = "";
-// }
-
-// button.addEventListener("click", addItem);
-
-// Brad's workflow
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
@@ -180,8 +150,6 @@ function init() {
 }
 
 init();
-
-// Event listeners
 
 // localStorage.setItem("name", "Peter");
 // sessionStorage.setItem("age", "30");
