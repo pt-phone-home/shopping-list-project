@@ -3,6 +3,8 @@ const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
 const clearButton = document.getElementById("clear");
 const itemFilter = document.getElementById("filter");
+const formBtn = itemForm.querySelector("button");
+let isEditMode = false;
 
 function displayItems() {
   let itemsFromStorage = getItemsFromStorage();
@@ -22,6 +24,21 @@ function onAddItemSubmit(e) {
   if (itemInput.value === "") {
     alert("Please add an item");
     return;
+  }
+
+  // check for edit mode
+
+  if (isEditMode) {
+    const itemToEdit = itemList.querySelector(".edit-mode");
+    removeItemFromLocalStorage(itemToEdit.textContent);
+    itemToEdit.classList.remove("edit-mode");
+    itemToEdit.remove();
+    isEditMode = false;
+  } else {
+    if (checkIfItemExists(newItem)) {
+      alert("duplicate item");
+      return;
+    }
   }
 
   addItemToDOM(newItem);
@@ -78,9 +95,26 @@ function createIcon(classes) {
 function onClickItem(e) {
   if (e.target.parentElement.classList.contains("remove-item")) {
     removeItem(e.target.parentElement.parentElement);
+  } else {
+    setItemToEdit(e.target);
   }
 }
 
+function checkIfItemExists(item) {
+  const itemsFromStorage = getItemsFromStorage();
+  return itemsFromStorage.includes(item);
+}
+
+function setItemToEdit(item) {
+  isEditMode = true;
+  itemList.querySelectorAll("li").forEach((item) => {
+    item.classList.remove("edit-mode");
+  });
+  item.classList.add("edit-mode");
+  formBtn.innerHTML = '<i class="fa-solid fa-pen"><i/> Update Item';
+  formBtn.style.backgroundColor = "#228b22";
+  itemInput.value = item.textContent;
+}
 function removeItem(item, e) {
   if (confirm("Are you sure?")) {
     // remove from DOM
@@ -130,6 +164,7 @@ function filterItems(e) {
 }
 
 function isListEmpty() {
+  itemInput.value = "";
   if (!itemList.firstElementChild) {
     clearButton.style.display = "none";
     itemFilter.style.display = "none";
@@ -137,6 +172,10 @@ function isListEmpty() {
     clearButton.style.display = "block";
     itemFilter.style.display = "block";
   }
+
+  formBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Item';
+  formBtn.style.backgroundColor = "#333";
+  isEditMode = false;
 }
 
 // Initialise Application
