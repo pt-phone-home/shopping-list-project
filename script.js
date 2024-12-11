@@ -6,6 +6,28 @@ const itemFilter = document.getElementById("filter");
 const formBtn = itemForm.querySelector("button");
 let isEditMode = false;
 
+let phrases;
+async function fetchData() {
+  try {
+    const response = await fetch("Phrases_2024_utf8.json");
+    if (!response.ok) {
+      throw new Error(`HTTP error, status ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching the JSON data", error);
+    return null;
+  }
+}
+
+fetchData().then((data) => {
+  if (data) {
+    phrases = data;
+    console.log(phrases);
+  }
+});
+
 function displayItems() {
   let itemsFromStorage = getItemsFromStorage();
   itemsFromStorage.forEach((item) => {
